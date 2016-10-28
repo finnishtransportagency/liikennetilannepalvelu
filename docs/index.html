@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Liikennetilanne palvelun apidoc</title>
+		<meta name="keywords" content="Liikennetilanne, Häiriöt ja tietyöt, Keliennuste, Kelikamerat, API, Doc">
+		<meta name="description" content="Liikennetilannepalvelun API dokumentaatio.">
+		
+		<!-- JQuery 3.1.1 -->
+		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+		
+		<!-- Handlebars -->
+		<script src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v4.0.5.js"></script>
+		
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+		<script src="data.js"></script>
+		<style>
+			.panel-white {
+				margin-top: 0px;
+			}
+			.panel-body {
+				padding:0px;
+				padding-top:15px;
+				padding-left:15px;
+			}
+			.panel-heading {
+				padding: 5px 5px;
+			}
+			pre {
+				white-space: pre-wrap;       /* css-3 */
+				white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+				white-space: -pre-wrap;      /* Opera 4-6 */
+				white-space: -o-pre-wrap;    /* Opera 7 */
+				word-wrap: break-word;       /* Internet Explorer 5.5+ */
+			}
+		</style>
+	</head>
+	<body onload="init()">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9" role="main">
+					<div class="page-header">
+						<h1 id="otsikko">Liikennetilanne REST rajapinnan sisällön dokumentaatio</h1>
+
+						<h2 id="osoite">Rajapinnan osoite</h2>
+						<a href="https://services1.arcgis.com/rhs5fjYxdOG1Et61/ArcGIS/rest/services ">https://services1.arcgis.com/rhs5fjYxdOG1Et61/ArcGIS/rest/services </a>
+
+						<h2 id="kuvaus">Kuvaus</h2>
+						<p>Liikennetilanne-palvelun julkinen REST-rajapinta. Rajapinnasta saa haettua Liikenneviraston tuottamaa liikenteeseen liittyvää dataa.</p>
+
+						<h2 id="tekninen">Tekninen kuvaus</h2>
+						<p>Rajapinta on toteutettu ArcGis Online rajapintapalveluna. Tarkempaa kuvausta rajapinnan toiminnallisuuksista löytyy osoitteesta:<br/> <a href="http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#">http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/</a><br/>
+							Tähän rajapintaan liittyvät dokumentaatiot löytyvät kohdasta Your own services -> Feature Service.
+							Rajapinnan kaikki tiedot ovat muodoltaan Feature Service. Rajapinnan kautta käyttäjä pystyy ainoastaan hakemaan tietoa, kirjoitusoikeuksia on ainoastaan rajapinnan ylläpitäjällä. 
+							Rajapinta toimii ainoastaan https-protokollalla. Kaikki kutsut voidaan tehdä joko GET tai POST tyyppisenä kutsuna.
+						</p>
+
+						<h2 id="sijainti">Sijaintitiedot</h2> 
+						<p>Kaikki koordinaattisijainnit ovat EUREF-FIN koordinaatistossa, jos ei muuta on mainittu</p>
+						<h2 id="updated">Ohjeet päivitetty</h2>
+							<p>20.10.2016</p>
+					</div>
+					<div id="panelDiv">
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div id="sidebar" class="hidden-print affix" role="complementary">
+						<ul class="nav nav-pills nav-stacked">
+							<li><a href="#aikataulurivit">/Aikataulurivit</a></li>
+							<li><a href="#hairio_0">/Hairio</a></li>
+							<li><a href="#juna_syy">/Juna_Syytietorivit</a></li>
+							<li><a href="#junat">/Junat</a></li>
+							<li><a href="#kelijakso">/Kelijakso_PK</a></li>
+							<li><a href="#lam">/LAM</a></li>
+							<li><a href="#merivaroitukset_0">/Merivaroitukset</a></li>
+							<li><a href="#rautatieasemat_1">/Rautatieasemat_1</a></li>
+							<li><a href="#rautatieasemat_2">/Rautatieasemat_2</a></li>
+							<li><a href="#rautatieasemat_3">/Rautatieasemat_3</a></li>
+							<li><a href="#rautatieasemat_4">/Rautatieasemat_4</a></li>
+							<li><a href="#rwcamera">/RWcamera</a></li>
+							<li><a href="#rws_station">/RWS_station</a></li>
+							<li><a href="#satamakutsut">/Satamakutsut</a></li>
+							<li><a href="#satamat">/Satamat</a></li>
+							<li><a href="#sujuvuus">/Sujuvuus</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script id="panel-header-template" type="text/handlebars-template">
+		<div class="panel-heading">
+			<h3 id={{id}} class="panel-title">{{header}}</h3>
+		</div>
+	</script>
+	<script id="panel-description-template" type="text/handlebars-template">
+		<div class="top-resource-description">
+			<p>{{{description}}}</p>
+		</div>
+	</script>
+	<script id="panel-group-template" type="text/handlebars-template">
+			<div class="panel panel-white">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+							<span class="parent">{{name}}</span>
+					</h4>
+				</div>
+				<div id="panel_{{id}}_{{name}}" class="panel-collapse collapse in" style="height:auto">
+					<div class="panel-body">
+						<div class="resource-description">
+							<p>Tyyppi: {{type}}</p>
+							<p>Kuvaus:</p>
+							<pre>{{{description}}}</pre>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+	</script>
+	<script>
+		function init() {
+			var panelDiv = $("#panelDiv");
+			for (var i = 0; i < data.length; i++) {
+				var $panelDefault = $("<div>", {"class": "panel panel-default"});
+				
+				var headerSource   = $("#panel-header-template").html();
+				var headerTemplate = Handlebars.compile(headerSource);
+				var headerContext = {id: data[i].id, header: data[i].header};
+				var header = headerTemplate(headerContext);
+				$panelDefault.append(header);
+				
+				var $panelBody = $("<div>", {"class": "panel-body"});
+				
+				var descriptionSource   = $("#panel-description-template").html();
+				var descriptionTemplate = Handlebars.compile(descriptionSource);
+				var descriptionContext = {description: data[i].description};
+				var description = descriptionTemplate(descriptionContext);
+				$panelBody.append(description);
+				
+				var $panelGroup = $("<div>", {"class": "panel-group"});
+				for (var j = 0; j < data[i].fields.length; j++) {
+					var source   = $("#panel-group-template").html();
+					var template = Handlebars.compile(source);
+					var context = {name: data[i].fields[j].name, type: data[i].fields[j].type, nullable: data[i].fields[j].nullable, description:data[i].fields[j].description, id: data[i].id};
+					var html    = template(context);
+					$panelGroup.append(html);
+				}
+				$panelBody.append($panelGroup);
+				$panelDefault.append($panelBody);
+				
+				$("#panelDiv").append($panelDefault);
+			}
+		}
+	</script>
+</html>
