@@ -67,7 +67,7 @@
 						<h2 id="sijainti">Sijaintitiedot</h2> 
 						<p>Kaikki koordinaattisijainnit ovat EUREF-FIN koordinaatistossa, jos ei muuta on mainittu</p>
 						<h2 id="updated">Ohjeet päivitetty</h2>
-							<p>20.10.2016</p>
+							<p>7.2.2017</p>
 					</div>
 					<div id="panelDiv">
 					</div>
@@ -76,6 +76,7 @@
 					<div id="sidebar" class="hidden-print affix" role="complementary">
 						<ul class="nav nav-pills nav-stacked">
 							<li><a href="#aikataulurivit">/Aikataulurivit</a></li>
+							<li><a href="#camera">/Cameras</a></li>
 							<li><a href="#hairio_0">/Hairio</a></li>
 							<li><a href="#juna_syy">/Juna_Syytietorivit</a></li>
 							<li><a href="#junat">/Junat</a></li>
@@ -86,7 +87,6 @@
 							<li><a href="#rautatieasemat_2">/Rautatieasemat_2</a></li>
 							<li><a href="#rautatieasemat_3">/Rautatieasemat_3</a></li>
 							<li><a href="#rautatieasemat_4">/Rautatieasemat_4</a></li>
-							<li><a href="#rwcamera">/RWcamera</a></li>
 							<li><a href="#rws_station">/RWS_station</a></li>
 							<li><a href="#satamakutsut">/Satamakutsut</a></li>
 							<li><a href="#satamat">/Satamat</a></li>
@@ -182,6 +182,203 @@
 						type : 'Point',
 						nullable : true,
 						description : 'Tapahtumalla ei ole sijaintia. '
+					}
+				]
+			}, {
+				id : 'camera',
+				header : '/Camera/FeatureServer/0',
+				description : 'Tietoa suomen tiesääkameroista (Road Weather Camera). Digitrafficin kuvaus: <a target="_blank" href="https://github.com/finnishtransportagency/digitraffic/wiki/Kelikameroiden%20esiasetukset">https://github.com/finnishtransportagency/digitraffic/wiki/Kelikameroiden%20esiasetukset</a>',
+				fields : [{
+						name : 'OBJECTID',
+						type : 'esriFieldTypeOID',
+						nullable : false,
+						description : 'ArcGis Onlinen antama id'
+					}, {
+						name : 'CameraId',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kameran id'
+					}, {
+						name : 'RoadStationId',
+						type : 'esriFieldTypeSmallInteger',
+						nullable : true,
+						description : 'Kameran tunniste'
+					}, {	
+						name : 'CameraType',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kameran tyyppi'
+					}, {
+						name : 'NameId',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kameran nimimuotoinen id'
+					}, {
+						name : 'Municipality',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kunnan nimi'
+					}, {
+						name : 'MunicipalityCode',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kuntakoodi'
+					}, {
+						name : 'Region',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Maakunnan suomenkielinen nimi'
+					}, {
+						name : 'Region_SV',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Maakunnan ruotsinkielinen nimi'
+					}, {
+						name : 'Region_EN',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Maakunnan englanninkielinen nimi'
+					}, {
+						name : 'RegionCode',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Maakunnan koodi'
+					}, {
+						name : 'Name_FI',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kameran suomenkielinen nimi'
+					}, {
+						name : 'Name_SV',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kameran ruotsinkielinen nimi'
+					}, {
+						name : 'Name_EN',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kameran englanninkielinen nimi'
+					}, {
+						name : 'RoadAddress',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kameran tieosoite muodossa tienumero;tieosa;etäisyys tieosan alusta"'
+					}, {
+						name : 'Latitude',
+						type : 'esriFieldTypeDouble',
+						nullable : true,
+						description : 'Kameran latitudi desimaalilukuna'
+					}, {
+						name : 'Longitude',
+						type : 'esriFieldTypeDouble',
+						nullable : true,
+						description : 'Kameran longitudi desimaalilukuna'
+					}, {
+						name : 'ETRS_X',
+						type : 'esriFieldTypeDouble',
+						nullable : true,
+						description : 'X-koordinaatti (ETRS)'
+					}, {
+						name : 'ETRS_Y',
+						type : 'esriFieldTypeDouble',
+						nullable : true,
+						description : 'Y-koordinaatti (ETRS)'
+					}, {
+						name : 'Location',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kameran lähimmän tiesääaseman id'
+					}, {
+						name : 'NearestWeatherStationId',
+						type : 'esriFieldTypeSmallInteger',
+						nullable : true,
+						description : 'Kameran lähimmän tiesääaseman id'
+					}, {
+						name : 'CameraStarted',
+						type : 'esriFieldTypeDate',
+						nullable : true,
+						description : 'Kameran alkamishetki'
+					}, {
+						name : 'CameraActive',
+						type : 'esriFieldTypeSmallInteger',
+						nullable : true,
+						description : 'Onko kyseinen kamera käytössä (0 = ei, 1 = kyllä)'
+					}, {
+						name : 'geometry',
+						type : 'Point',
+						nullable : true,
+						description : 'Geometria pisteenä'
+					}
+				]
+			}, {
+				id : 'camera_presets',
+				header : '/Camera/FeatureServer/1',
+				description : 'Tietoa suomen tiesääkameroiden esiasetuksista (suunnista). Digitrafficin kuvaus: <a target="_blank" href="https://github.com/finnishtransportagency/digitraffic/wiki/Kelikameroiden%20esiasetukset">https://github.com/finnishtransportagency/digitraffic/wiki/Kelikameroiden%20esiasetukset</a>',
+				fields : [{
+						name : 'OBJECTID',
+						type : 'esriFieldTypeOID',
+						nullable : false,
+						description : 'ArcGis Onlinen antama id'
+					}, {
+						name : 'CameraId',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kameran id'
+					}, {
+						name : 'PresetId',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Esiasetuksen id'
+					}, {
+						name : 'DirectionName',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kamerasuunnan nimi'
+					}, {
+						name : 'DeviceName',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : ''
+					}, {
+						name : 'PresetOrder',
+						type : 'esriFieldTypeSmallInteger',
+						nullable : true,
+						description : ''
+					}, {
+						name : 'CameraResolution',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kamerakuvien resoluutio'
+					}, {
+						name : 'DirectionCode',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kamerasuunnan koodi'
+					}, {
+						name : 'ImageUrl',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kamerasuunnan URL Digitrafficin rajapinnassa'
+					}, {
+						name : 'DirectionDescription',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kamerasuunnan kuvaus verrattuna tieosoittteeseen'
+					}, {
+						name : 'PicLastModified',
+						type : 'esriFieldTypeDate',
+						nullable : true,
+						description : 'Kameran tuorein kuvan aikaleima Digitrafficissa'
+					}, {
+						name : 'PresetActive',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Onko kyseinen kamerasuunta käytössä (0 = ei, 1 = kyllä)'
+					}, {
+						name : 'ShowDigitrafficPic',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kertoo näytetäänkö Digitrafficin kuva Liikennetilannepalvelussa (0 = ei, 1 = kyllä)'
 					}
 				]
 			}, {
@@ -2168,177 +2365,6 @@
 					}
 				]
 			}, {
-				id : 'rwcamera',
-				header : '/RWcamera/FeatureServer/0',
-				description : 'Tietoa suomen tiesääkameroista (Road Weather Camera). Digitrafficin kuvaus: <a target="_blank" href="https://github.com/finnishtransportagency/digitraffic/wiki/Kelikameroiden%20esiasetukset">https://github.com/finnishtransportagency/digitraffic/wiki/Kelikameroiden%20esiasetukset</a>',
-				fields : [{
-						name : 'OBJECTID',
-						type : 'esriFieldTypeOID',
-						nullable : false,
-						description : 'ArcGis Onlinen antama ID'
-					}, {
-						name : 'CameraPanID',
-						type : 'esriFieldTypeString',
-						nullable : true,
-						description : 'Kameran suunnan ID'
-					}, {
-						name : 'ClosestRoadweatherStationID',
-						type : 'esriFieldTypeDouble',
-						nullable : true,
-						description : 'Kameran lähimmän tiesääaseman id'
-					}, {
-						name : 'CameraName',
-						type : 'esriFieldTypeString',
-						nullable : true,
-						description : 'Kameran nimi'
-					}, {
-						name : 'Direction',
-						type : 'esriFieldTypeString',
-						nullable : true,
-						description : 'Kameran suunnan kuvaus'
-					}, {
-						name : 'Tie',
-						type : 'esriFieldTypeDouble',
-						nullable : true,
-						description : 'Tien numero'
-					}, {
-						name : 'Tieosa',
-						type : 'esriFieldTypeDouble',
-						nullable : true,
-						description : 'Tiejakson tieosa'
-					}, {
-						name : 'Aet',
-						type : 'esriFieldTypeDouble',
-						nullable : true,
-						description : 'Etäisyys tieosan alusta'
-					}, {
-						name : 'Y',
-						type : 'esriFieldTypeDouble',
-						nullable : true,
-						description : 'Y-koordinaatti (YKJ)'
-					}, {
-						name : 'X',
-						type : 'esriFieldTypeDouble',
-						nullable : true,
-						description : 'X-koordinaatti (YKJ)'
-					}, {
-						name : 'KUNNAN_NIMI',
-						type : 'esriFieldTypeString',
-						nullable : true,
-						description : 'Kunnan nimi'
-					}, {
-						name : 'EA_JULKINEN',
-						type : 'esriFieldTypeDouble',
-						nullable : true,
-						description : 'Lippu joka kertoo onko kamera julkinen vai ei.\nfalse = ei julkinen\ntrue = julkinen'
-					}, {
-						name : 'LEVEYS_ASTE',
-						type : 'esriFieldTypeDouble',
-						nullable : true,
-						description : 'Latitudi koordinaatin aseet'
-					}, {
-						name : 'LEVEYS_MINUUTTI',
-						type : 'esriFieldTypeDouble',
-						nullable : true,
-						description : 'Latitudi koordinaatin minuutit'
-					}, {
-						name : 'LEVEYS_SEKUNTI',
-						type : 'esriFieldTypeDouble',
-						nullable : true,
-						description : 'Latitudi koordinaatin sekunnit'
-					}, {
-						name : 'PITUUS_ASTE',
-						type : 'esriFieldTypeDouble',
-						nullable : true,
-						description : 'Longitudi koordinaatin asteet'
-					}, {
-						name : 'PITUUS_MINUUTTI',
-						type : 'esriFieldTypeDouble',
-						nullable : true,
-						description : 'Longitudi koordinaatin minuutit'
-					}, {
-						name : 'PITUUS_SEKUNTI',
-						type : 'esriFieldTypeDouble',
-						nullable : true,
-						description : 'Longitudi koordinaatin sekunnit'
-					}, {
-						name : 'lat',
-						type : 'esriFieldTypeDouble',
-						nullable : true,
-						description : 'Kameran latitudi'
-					}, {
-						name : 'lon',
-						type : 'esriFieldTypeDouble',
-						nullable : true,
-						description : 'Kameran longitudi'
-					}, {
-						name : 'utc',
-						type : 'esriFieldTypeString',
-						nullable : true,
-						description : 'Kameran tiedot päivitetty utc ajassa'
-					}, {
-						name : 'localtime',
-						type : 'esriFieldTypeString',
-						nullable : true,
-						description : 'Kameran tiedot päivitetty'
-					}, {
-						name : 'cameraid',
-						type : 'esriFieldTypeString',
-						nullable : true,
-						description : 'Kameran id'
-					}, {
-						name : 'presetid',
-						type : 'esriFieldTypeString',
-						nullable : true,
-						description : 'Kameran esiasennon tunniste'
-					}, {
-						name : 'roadstationid',
-						type : 'esriFieldTypeString',
-						nullable : true,
-						description : 'Kameran tunniste'
-					}, {
-						name : 'public_',
-						type : 'esriFieldTypeString',
-						nullable : true,
-						description : 'Lippu joka kertoo onko kamera julkinen vai ei.\nfalse = ei julkinen\ntrue = julkinen'
-					}, {
-						name : 'presetname1',
-						type : 'esriFieldTypeString',
-						nullable : true,
-						description : 'Esiasetuksen nimi 1'
-					}, {
-						name : 'presetname2',
-						type : 'esriFieldTypeString',
-						nullable : true,
-						description : 'Esiasetuksen nimi 2'
-					}, {
-						name : 'nearestroadstationid',
-						type : 'esriFieldTypeString',
-						nullable : true,
-						description : 'Lähimmän tieaseman tunniste '
-					}, {
-						name : 'timestamps',
-						type : 'esriFieldTypeString',
-						nullable : true,
-						description : 'Viimeisimmät aikaleimat jolloin kamera on ottanut kuvia'
-					}, {
-						name : 'CAMERA_ACTIVE',
-						type : 'esriFieldTypeSmallInteger',
-						nullable : true,
-						description : 'Onko kyseinen kamera käytössä (0 = ei, 1 = kyllä)'
-					}, {
-						name : 'CAMERA_PAN_ACTIVE',
-						type : 'esriFieldTypeSmallInteger',
-						nullable : true,
-						description : 'Onko kyseinen kamerasuunta käytössä (0 = ei, 1 = kyllä)'
-					}, {
-						name : 'geometry',
-						type : 'Point',
-						nullable : true,
-						description : 'Geometria pisteenä'
-					}
-				]
-			}, {
 				id : 'rws_station',
 				header : '/RWS_station/FeatureServer/0',
 				description : 'Tiesääasemien staattiset ja päivittyvät tiedot.\n <a target="_blank" href="https://github.com/finnishtransportagency/digitraffic/wiki/Ties%C3%A4%C3%A4asemien%20ajantasaiset%20mittaustiedot">https://github.com/finnishtransportagency/digitraffic/wiki/Ties%C3%A4%C3%A4asemien%20ajantasaiset%20mittaustiedot</a>',
@@ -2396,7 +2422,37 @@
 						name : 'KUNNAN_NIMI',
 						type : 'esriFieldTypeString',
 						nullable : true,
-						description : 'Kunnan nimi'
+						description : 'Kunnan suomenkielinen nimi'
+					}, {
+						name : 'KUNNAN_NIMI_SV',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kunnan ruotsinkielinen nimi'
+					}, {
+						name : 'KUNNAN_NIMI_EN',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Kunnan englanninkielinen nimi'
+					}, {
+						name : 'MAAKUNTAKOODI',
+						type : 'esriFieldTypeInteger',
+						nullable : true,
+						description : 'Maakunnan koodi'
+					}, {
+						name : 'MAAKUNNAN_NIMI',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Maakunnan suomenkielinen nimi'
+					}, {
+						name : 'MAAKUNNAN_NIMI_SV',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Maakunnan ruotsinkielinen nimi'
+					}, {
+						name : 'MAAKUNNAN_NIMI_EN',
+						type : 'esriFieldTypeString',
+						nullable : true,
+						description : 'Maakunnan englanninkielinen nimi'
 					}, {
 						name : 'TIEPIIRIN_NIMI',
 						type : 'esriFieldTypeString',
@@ -2482,6 +2538,11 @@
 						type : 'esriFieldTypeString',
 						nullable : true,
 						description : 'Yksittäisen aseman tietojen päivityshetki tekstinä. Muoto on "yyyyMMddHHmmss", esimerkiksi 20160606030000 = 06.06.2016 klo 03:00:00.'
+					}, {
+						name : 'MASTER',
+						type : 'esriFieldTypeSmallInteger',
+						nullable : true,
+						description : 'Onko kyseinen asema master asema (0 = ei, 1 = kyllä)'
 					}, {
 						name : 'geometry',
 						type : 'Point',
