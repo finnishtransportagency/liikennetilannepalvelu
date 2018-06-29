@@ -7,16 +7,16 @@
 		<title>Liikennetilanne palvelun apidoc</title>
 		<meta name="keywords" content="Liikennetilanne, Häiriöt ja tietyöt, Keliennuste, Kelikamerat, API, Doc">
 		<meta name="description" content="Liikennetilannepalvelun API dokumentaatio.">
-		
+
 		<!-- JQuery 3.1.1 -->
 		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
-		
+
 		<!-- Handlebars -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-		
+
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-		
+
 		<!-- Optional theme -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
@@ -42,6 +42,15 @@
 				white-space: -o-pre-wrap;    /* Opera 7 */
 				word-wrap: break-word;       /* Internet Explorer 5.5+ */
 			}
+			.nav-stacked{
+				margin-top: 0px;
+				margin-left: 0;
+			}
+			.nav.nav-pills.nav-stacked {
+				height: 800px;
+				overflow: auto
+			}
+
 		</style>
 	</head>
 	<body onload="init()">
@@ -60,11 +69,11 @@
 						<h2 id="tekninen">Tekninen kuvaus</h2>
 						<p>Rajapinta on toteutettu ArcGis Online rajapintapalveluna. Tarkempaa kuvausta rajapinnan toiminnallisuuksista löytyy osoitteesta:<br/> <a href="http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#">http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/</a><br/>
 							Tähän rajapintaan liittyvät dokumentaatiot löytyvät kohdasta Your own services -> Feature Service.
-							Rajapinnan kaikki tiedot ovat muodoltaan Feature Service. Rajapinnan kautta käyttäjä pystyy ainoastaan hakemaan tietoa, kirjoitusoikeuksia on ainoastaan rajapinnan ylläpitäjällä. 
+							Rajapinnan kaikki tiedot ovat muodoltaan Feature Service. Rajapinnan kautta käyttäjä pystyy ainoastaan hakemaan tietoa, kirjoitusoikeuksia on ainoastaan rajapinnan ylläpitäjällä.
 							Rajapinta toimii ainoastaan https-protokollalla. Kaikki kutsut voidaan tehdä joko GET tai POST tyyppisenä kutsuna.
 						</p>
 
-						<h2 id="sijainti">Sijaintitiedot</h2> 
+						<h2 id="sijainti">Sijaintitiedot</h2>
 						<p>Kaikki koordinaattisijainnit ovat EUREF-FIN koordinaatistossa, jos ei muuta on mainittu</p>
 						<h2 id="updated">Ohjeet päivitetty</h2>
 							<p>7.2.2017</p>
@@ -83,14 +92,20 @@
 							<li><a href="#kelijakso">/Kelijakso_PK</a></li>
 							<li><a href="#lam">/LAM</a></li>
 							<li><a href="#merivaroitukset_0">/Merivaroitukset</a></li>
+							<li><a href="#tiedote">/Tiedote</a></li>
 							<li><a href="#rautatieasemat_1">/Rautatieasemat_1</a></li>
 							<li><a href="#rautatieasemat_2">/Rautatieasemat_2</a></li>
 							<li><a href="#rautatieasemat_3">/Rautatieasemat_3</a></li>
 							<li><a href="#rautatieasemat_4">/Rautatieasemat_4</a></li>
 							<li><a href="#rws_station">/RWS_station</a></li>
+							<li><a href="#RWcamera">/RWcamera</a></li>
 							<li><a href="#satamakutsut">/Satamakutsut</a></li>
 							<li><a href="#satamat">/Satamat</a></li>
+							<li><a href="#satama_metadata">/Satama metadata</a></li>
+							<li><a href="#rataverkko">/Rataverkko</a></li>
 							<li><a href="#sujuvuus">/Sujuvuus</a></li>
+							<li><a href="#haku_metadata">/Haku metadata</a></li>
+							<li><a href="#talvikunnossapito">/Talvikunnossapito</a></li>
 						</ul>
 					</div>
 				</div>
@@ -203,7 +218,7 @@
 						type : 'esriFieldTypeSmallInteger',
 						nullable : true,
 						description : 'Kameran tunniste'
-					}, {	
+					}, {
 						name : 'CameraType',
 						type : 'esriFieldTypeString',
 						nullable : true,
@@ -1740,6 +1755,52 @@
 						description : 'Aluemaiset merivaroitukset'
 					}
 				]
+			},  {
+				id : 'tiedote',
+				header : '/Tiedote/FeatureServer/0',
+				description : 'Oranssin tiedotteen tekstisisältö. Käytetään esim. varoittamaan käyttäjiä virhetilanteista tai muista epänormaaleista tilanteista.',
+				fields : [{
+						name : 'esriFieldTypeOID',
+						type : '',
+						nullable : false,
+						description : 'ArcGis Onlinen antama ID'
+					}, {
+						name : "Tiedote",
+						type : "esriFieldTypeString",
+						sqlType : "sqlTypeOther",
+						length : 1500,
+						nullable : true,
+						description : "Tiedotelaatikon tekstisisältö."
+					}, {
+						name : "Tiedote_SWE",
+						type : "esriFieldTypeString",
+						sqlType : "sqlTypeOther",
+						length : 1500,
+						nullable : true,
+						description : "Tiedotelaatikon tekstisisältö ruotsiksi."
+					}, {
+						name : "Tiedote_ENG",
+						type : "esriFieldTypeString",
+						sqlType : "sqlTypeOther",
+						length : 256,
+						nullable : true,
+						description : "Tiedotelaatikon tekstisisältö englanniksi."
+					}, {
+						name : "Alkaa",
+						type : "esriFieldTypeDate",
+						sqlType : "sqlTypeOther",
+						length : 256,
+						nullable : true,
+						description : "Tiedotelaatikon tekstisisältö englanniksi."
+					}, {
+						name : "Loppuu",
+						type : "esriFieldTypeDate",
+						sqlType : "sqlTypeOther",
+						length : 0,
+						nullable : true,
+						description : "Tiedotelaatikon tekstisisältö englanniksi."
+					}
+				]
 			}, {
 				id : 'rautatieasemat_1',
 				header : '/Rautatieasemat_1/FeatureServer/0',
@@ -2551,6 +2612,230 @@
 					}
 				]
 			}, {
+				id : 'RWcamera',
+				header : '/RWcamera/FeatureServer/0',
+				description : "Kelikamerat.",
+				fields: [{
+			      name : "OBJECTID",
+			      type : "esriFieldTypeOID",
+			      sqlType : "sqlTypeOther",
+			      nullable : false,
+			      description : "ArcGis Onlinen antama ID"
+			    },
+			    {
+			      name : "CameraPanID",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 255,
+			      nullable : true,
+			      description : "Kameran tunniste"
+			    },
+			    {
+			      name : "ClosestRoadweatherStationID",
+			      type : "esriFieldTypeDouble",
+			      sqlType : "sqlTypeOther",
+			      nullable : true,
+			      description : "Lähimmän tiesääaseman tunniste."
+			    },
+			    {
+			      name : "CameraName",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 255,
+			      nullable : true
+			    },
+			    {
+			      name : "Direction",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 255,
+			      nullable : true,
+			      description : `Suunta ja jos ei ole niin paikalla "PUUTTUU".`
+			    },
+			    {
+			      name : "Tie",
+			      type : "esriFieldTypeDouble",
+			      sqlType : "sqlTypeOther",
+			      nullable : true
+			    },
+			    {
+			      name : "Tieosa",
+			      type : "esriFieldTypeDouble",
+			      sqlType : "sqlTypeOther",
+			      nullable : true,
+			    },
+			    {
+			      name : "Aet",
+			      type : "esriFieldTypeDouble",
+			      sqlType : "sqlTypeOther",
+			      nullable : true,
+			    },
+			    {
+			      name : "Y",
+			      type : "esriFieldTypeDouble",
+			      sqlType : "sqlTypeOther",
+			      nullable : true,
+			    },
+			    {
+			      name : "X",
+			      type : "esriFieldTypeDouble",
+			      sqlType : "sqlTypeOther",
+			      nullable : true,
+			    },
+			    {
+			      name : "KUNNAN_NIMI",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 255,
+			      nullable : true,
+			    },
+			    {
+			      name : "EA_JULKINEN",
+			      type : "esriFieldTypeDouble",
+			      sqlType : "sqlTypeOther",
+			      nullable : true,
+			      description : "0 jos kamera ei ole näkyvillä, 1 jos on."
+			    },
+			    {
+			      name : "LEVEYS_ASTE",
+			      type : "esriFieldTypeDouble",
+			      sqlType : "sqlTypeOther",
+			      nullable : true,
+			    },
+			    {
+			      name : "LEVEYS_MINUUTTI",
+			      type : "esriFieldTypeDouble",
+			      sqlType : "sqlTypeOther",
+			      nullable : true,
+			    },
+			    {
+			      name : "LEVEYS_SEKUNTI",
+			      type : "esriFieldTypeDouble",
+			      sqlType : "sqlTypeOther",
+			      nullable : true,
+			    },
+			    {
+			      name : "PITUUS_ASTE",
+			      type : "esriFieldTypeDouble",
+			      sqlType : "sqlTypeOther",
+			      nullable : true,
+			    },
+			    {
+			      name : "PITUUS_MINUUTTI",
+			      type : "esriFieldTypeDouble",
+			      sqlType : "sqlTypeOther",
+			      nullable : true,
+			    },
+			    {
+			      name : "PITUUS_SEKUNTI",
+			      type : "esriFieldTypeDouble",
+			      sqlType : "sqlTypeOther",
+			      nullable : true,
+			    },
+			    {
+			      name : "lat",
+			      type : "esriFieldTypeDouble",
+			      sqlType : "sqlTypeOther",
+			      nullable : true,
+						description : "Kelikameran koordinaatti (ETRS-TM35FIN)"
+			    },
+			    {
+			      name : "lon",
+			      type : "esriFieldTypeDouble",
+			      sqlType : "sqlTypeOther",
+			      nullable : true,
+						description : "Kelikameran koordinaatti (ETRS-TM35FIN)"
+			    },
+			    {
+			      name : "utc",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 255,
+			      nullable : true,
+						description : "Kelikameran lisäyksen aikaleima UTC-ajassa."
+			    },
+			    {
+			      name : "localtime",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 255,
+			      nullable : true,
+						description : "Kelikameran lisäyksen aikaleima paikallisessa ajassa."
+			    },
+			    {
+			      name : "cameraid",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 255,
+			      nullable : true,
+			      description : "Kameran tunniste."
+			    },
+			    {
+			      name : "presetid",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 255,
+			      nullable : true,
+			      description : "Kameran presetin tunniste."
+			    },
+			    {
+			      name : "roadstationid",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 255,
+			      nullable : true,
+			    },
+			    {
+			      name : "public_",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 255,
+			      nullable : true,
+			    },
+			    {
+			      name : "presetname1",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 255,
+			      nullable : true,
+			    },
+			    {
+			      name : "presetname2",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 255,
+			      nullable : true,
+			    },
+			    {
+			      name : "nearestroadstationid",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 255,
+			      nullable : true,
+			    },
+			    {
+			      name : "timestamps",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 10000,
+			      nullable : true,
+			      description : "Kamerakuvien aikaleimat."
+			    },
+			    {
+			      name : "CAMERA_ACTIVE",
+			      type : "esriFieldTypeSmallInteger",
+			      sqlType : "sqlTypeOther",
+			      nullable : true,
+			      description : "1 jos kamera on käytössä ja 0 jos ei."
+			    },
+			    {
+			      name : "CAMERA_PAN_ACTIVE",
+			      type : "esriFieldTypeSmallInteger",
+			      sqlType : "sqlTypeOther",
+			      nullable : true,
+					}
+				]
+			}, {
 				id : 'satamakutsut',
 				header : '/Satamakutsut/FeatureServer/0',
 				description : 'Laivojen ilmoitetut satamakäynnit.',
@@ -2790,6 +3075,69 @@
 					}
 				]
 			}, {
+					id : 'satama_metadata',
+					header : '/Satama_metadata/FeatureServer/0',
+					description : 'Satamien metadata',
+					fields : [    {
+			      name : "OBJECTID",
+			      type : "esriFieldTypeOID",
+			      alias : "OBJECTID",
+			      sqlType : "sqlTypeOther",
+			      description : "AGOL onlinen antama tunniste"
+			    },
+			    {
+			      name : "PORTCALL_UPDATED_UNTIL",
+			      type : "esriFieldTypeDate",
+			      alias : "PORTCALL_UPDATED_UNTIL",
+			      sqlType : "sqlTypeOther",
+			      length : 8
+			    },
+			    {
+			      name : "PORTCALL_LAST_UPDATE",
+			      type : "esriFieldTypeDate",
+			      alias : "PORTCALL_LAST_UPDATE",
+			      sqlType : "sqlTypeOther",
+			      length : 8,
+			      description : "Edellisen päivityksen aikaleima"
+			    }
+					]
+				}, {
+				id : 'Rataverkko',
+				header : '/Rataverkko/FeatureServer/0',
+				description : 'Oranssin tiedotteen tekstisisältö. Käytetään esim. varoittamaan käyttäjiä virhetilanteista tai muista epänormaaleista tilanteista.',
+				fields : [{
+						name : 'esriFieldTypeOID',
+						type : '',
+						nullable : false,
+						description : 'ArcGis Onlinen antama ID'
+					}, {
+						name : "RAIDE_TEXT",
+						type : "esriFieldTypeString",
+						sqlType : "sqlTypeOther",
+						length : 254,
+						nullable : true,
+						description : "Raidenumero merkkijonona."
+					}, {
+						name : "RAIDE_NUM",
+						type : "esriFieldTypeDouble",
+						sqlType : "sqlTypeOther",
+						nullable : true,
+						description : "Raidenumero liukulukuna."
+					}, {
+						name : "OMAISUUS",
+						type : "esriFieldTypeDouble",
+						sqlType : "sqlTypeOther",
+						nullable : true,
+						description : ""
+					}, {
+						name : "TILA",
+						type : "esriFieldTypeDouble",
+						sqlType : "sqlTypeOther",
+						nullable : true,
+						description : "Radan tila."
+					}
+				]
+			}, {
 				id : 'sujuvuus',
 				header : '/Sujuvuus/FeatureServer/0 - /Sujuvuus/FeatureServer/8',
 				description : 'Matka-aika linkkejä pääkaupunkiseudulla. Matka-aikalinkit sisältävät tiedon  tieosuuden keskinopeus, sujuvuusluokka jne. PKS-järjestelmän matka-aikalinkit ovat linkkinumeroiltaan 1-3 numeroisia (alle 1000), eli ainoastaan pääkaupunkiseudun linkit ovat käytössä vaikka palvelu sisältäisikin koko suomen matka-aika linkit. Tietolähteenä toimii Digitrafficin rajapinta: <a target="_blank" href="https://github.com/finnishtransportagency/digitraffic/wiki/Ajantasaiset%20sujuvuustiedot">https://github.com/finnishtransportagency/digitraffic/wiki/Ajantasaiset%20sujuvuustiedot</a>',
@@ -2935,6 +3283,132 @@
 						description : ''
 					}
 				]
+			}, {
+					id : 'haku_metadata',
+					header : '/SearchMetadata/FeatureServer/0',
+					description : 'Haku metadata',
+					fields : [{
+				    name : "OBJECTID",
+				    type : "esriFieldTypeOID",
+				    sqlType : "sqlTypeOther",
+				    description : "AGOL Onlinen antama tunniste."
+				  },
+				  {
+				    name : "Id",
+				    type : "esriFieldTypeString",
+				    sqlType : "sqlTypeNVarchar",
+				    length : 256,
+				    description : "Tunniste"
+				  },
+				  {
+				    name : "LayerName",
+				    type : "esriFieldTypeString",
+				    sqlType : "sqlTypeNVarchar",
+				    length : 256,
+				    description : "AGOL tason nimi."
+				  },
+				  {
+				    name : "SublayerName",
+				    type : "esriFieldTypeString",
+				    sqlType : "sqlTypeNVarchar",
+				    length : 256,
+				  },
+				  {
+				    name : "TitleFi",
+				    type : "esriFieldTypeString",
+				    sqlType : "sqlTypeNVarchar",
+				    length : 256,
+				    description : "Kohteen otsikko."
+				  },
+				  {
+				    name : "TitleSv",
+				    type : "esriFieldTypeString",
+				    sqlType : "sqlTypeNVarchar",
+				    length : 256,
+				    description : "Kohteen ruotsiksi."
+				  },
+				  {
+				    name : "TitleEn",
+				    type : "esriFieldTypeString",
+				    sqlType : "sqlTypeNVarchar",
+				    length : 256,
+				    description : "Kohteen englanniksi."
+				  },
+				  {
+				    name : "AreaFi",
+				    type : "esriFieldTypeString",
+				    sqlType : "sqlTypeNVarchar",
+				    length : 256,
+				    description : "Paikkakunta."
+				  },
+				  {
+				    name : "AreaSv",
+				    type : "esriFieldTypeString",
+				    sqlType : "sqlTypeNVarchar",
+				    length : 256,
+				    description : "Paikkakunta ruotsiksi."
+				  },
+				  {
+				    name : "AreaEn",
+				    type : "esriFieldTypeString",
+				    sqlType : "sqlTypeNVarchar",
+				    length : 256,
+				    description : "Paikkakunta englanniksi."
+				  }
+				]
+			}, {
+					id : 'talvikunnossapito',
+					header : '/WinterRoadMaintenance/FeatureServer/0',
+					description : 'Haku metadata',
+					fields : [{
+			      name : "OBJECTID",
+			      type : "esriFieldTypeOID",
+			      sqlType : "sqlTypeOther",
+			      description : "AGOL Onlinen antama tunniste."
+			    },
+			    {
+			      name : "Suoritetta",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 256,
+			      description : "Suoritettavan kunnosspitotoimenpiteen kuvaus."
+			    },
+			    {
+			      name : "h_ajat",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 256,
+			      description : "Aikaisemmin tehtyjen toimenpiteiden aikaleimat."
+			    },
+			    {
+			      name : "h_tyot",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 256,
+			      description : "Aikaisemmin tehtyjen toimenpiteiden tunnisteet."
+			    },
+			    {
+			      name : "Alkuaika",
+			      type : "esriFieldTypeDate",
+			      sqlType : "sqlTypeOther",
+			      length : 8,
+			      description : "Tehtävän toimenpiteen aloitusaika."
+			    },
+			    {
+			      name : "Loppuaika",
+			      type : "esriFieldTypeDate",
+			      sqlType : "sqlTypeOther",
+			      length : 8,
+			      description : "Tehtävän toimenpiteen lopetusaika."
+			    },
+			    {
+			      name : "HashId",
+			      type : "esriFieldTypeString",
+			      sqlType : "sqlTypeOther",
+			      length : 256,
+			      description : "Attribuuteista laskettu tiiviste, jolla ne erotetaan toisistaan."
+			    }
+				]
 			}
 		]
 	</script>
@@ -2961,7 +3435,7 @@
 							<p>Tyyppi: {{type}}</p>
 							<p>Kuvaus:</p>
 							<pre>{{{description}}}</pre>
-							
+
 						</div>
 					</div>
 				</div>
@@ -2972,21 +3446,21 @@
 			var panelDiv = $("#panelDiv");
 			for (var i = 0; i < data.length; i++) {
 				var $panelDefault = $("<div>", {"class": "panel panel-default"});
-				
+
 				var headerSource   = $("#panel-header-template").html();
 				var headerTemplate = Handlebars.compile(headerSource);
 				var headerContext = {id: data[i].id, header: data[i].header};
 				var header = headerTemplate(headerContext);
 				$panelDefault.append(header);
-				
+
 				var $panelBody = $("<div>", {"class": "panel-body"});
-				
+
 				var descriptionSource   = $("#panel-description-template").html();
 				var descriptionTemplate = Handlebars.compile(descriptionSource);
 				var descriptionContext = {description: data[i].description};
 				var description = descriptionTemplate(descriptionContext);
 				$panelBody.append(description);
-				
+
 				var $panelGroup = $("<div>", {"class": "panel-group"});
 				for (var j = 0; j < data[i].fields.length; j++) {
 					var source   = $("#panel-group-template").html();
@@ -2997,7 +3471,7 @@
 				}
 				$panelBody.append($panelGroup);
 				$panelDefault.append($panelBody);
-				
+
 				$("#panelDiv").append($panelDefault);
 			}
 		}
